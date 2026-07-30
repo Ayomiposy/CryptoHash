@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
-import { CoinCard } from "./components/coinCard";
-import { LimitFilter } from "./components/listLimit";
-import SearchInput from "./components/searchInput";
+import { Route, Routes } from "react-router";
+import { HomePage } from "./pages/homepage";
+import { AboutPage } from "./pages/aboutPage";
+import { Header } from "./components/header";
+import { NotFound } from "./pages/notFound";
+import { CoinDetailPage } from "./pages/coinDetails";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -11,6 +14,7 @@ const App = () => {
   const [error, setError] = useState(null);
   const [limit, setLimit] = useState(10);
   const [search, setSearch] = useState("");
+  const [sortBy, setSortBy] = useState("market_cap_desc");
 
   useEffect(() => {
     const fetchCoins = async () => {
@@ -21,7 +25,6 @@ const App = () => {
         if (!response.ok) throw new Error("Failed to fetch data");
         const data = await response.json();
         setCoins(data);
-        console.log(data);
       } catch (error) {
         setError(error);
         console.log("Error message", error);
@@ -33,31 +36,30 @@ const App = () => {
     fetchCoins();
   }, [limit]);
 
-  const filteredCoins = coins.filter((coins) =>
-    coins.name.toLowerCase().includes(search.toLowerCase()),
-  );
-
-  console.log(search);
   return (
     <div>
-      <h1>🚀 CrytoHash</h1>
-      {/* search and filter per page */}
-      {loading && <p>Loading...</p>}
-      {error && <div className="error">{error.message}</div>}
-      <div className="top-controls">
-        <SearchInput search={search} setSearch={setSearch} />
-        <LimitFilter limit={limit} setLimit={setLimit} />
-      </div>
-
-      {!loading && !error && (
-        <main className="grid">
-          {filteredCoins.length === 0 ? (
-            <div>There are no matching coins</div>
-          ) : (
-            filteredCoins.map((coin) => <CoinCard coin={coin} key={coin.id} />)
-          )}
-        </main>
-      )}
+      <Header />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <HomePage
+              coins={coins}
+              error={error}
+              loading={loading}
+              limit={limit}
+              setLimit={setLimit}
+              search={search}
+              setSearch={setSearch}
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+            />
+          }
+        />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/coin/:id" element={<CoinDetailPage />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 };

@@ -1,6 +1,9 @@
-export const CoinCard = ({ coin }) => {
+// import { Link } from "react-router";
+
+export const CoinCard = ({ coin, onClick }) => {
   return (
-    <div>
+    // <Link to={`/coin/${coin.id}`}>
+    <div onClick={onClick}>
       <div className="coin-card" key={coin.id}>
         <div className="coin-header">
           <img className="coin-image" src={coin.image} alt={coin.name} />
@@ -20,5 +23,6 @@ export const CoinCard = ({ coin }) => {
         <p>Market Cap: {coin.market_cap.toLocaleString()}</p>
       </div>
     </div>
+    // </Link>
   );
 };
