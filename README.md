@@ -1,46 +1,68 @@
 # CryptoHash
 
-CryptoHash is a React + Vite web app for exploring popular cryptocurrencies in a simple, fast, and user-friendly way. It lets you browse coins, search by name, sort by market metrics, and adjust the number of results shown on the page.
+CryptoHash is a React + Vite cryptocurrency dashboard that helps you explore market data, compare coins, and navigate essential metrics in a fast, intuitive interface.
 
-## Features
+## 🚀 What it does
 
-- Browse a list of cryptocurrencies from a live API
-- Search coins by name or symbol
-- Sort by market cap, price, or 24h change
-- Adjust the number of visible results
-- Clean, modern interface built with React
+- Fetches live cryptocurrency data from the CoinGecko API
+- Displays market metrics like price, market cap, volume, and 24h change
+- Supports search by coin name or symbol
+- Enables sorting by market cap, price, and price change
+- Lets you choose how many coins to display per page
+- Includes dedicated pages for coin details, about, and 404 handling
 
-## Tech Stack
+## 🧱 Tech stack
 
-- React
-- Vite
+- React 19
+- Vite 8
 - JavaScript
 - CSS
+- Chart.js + react-chartjs-2
 - CoinGecko API
+- React Router v8
 
-## Getting Started
+## 📁 Project structure
 
-1. Clone the repository
+- `src/App.jsx` — root app with routes and global state
+- `src/pages/` — page-level views (`homepage`, `aboutPage`, `coinDetails`, `notFound`)
+- `src/components/` — reusable UI building blocks like search, sorting, cards, and spinner
+- `src/assets/` — static assets
+
+## ⚙️ Setup
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/crytohash.git
+   cd "CrytoHash"
+   ```
 2. Install dependencies:
    ```bash
    npm install
    ```
-3. Start the development server:
+3. Create a `.env` file in the project root and add your API base URL:
+   ```env
+   VITE_API_URL=https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd
+   ```
+4. Run the dev server:
    ```bash
    npm run dev
    ```
-4. Open the local URL shown in the terminal
 
-## Project Structure
+Open the local URL shown in the terminal to view the app.
 
-- src/components - reusable UI components such as search, sorting, and coin cards
-- src/pages - page-level components
-- src/App.jsx - main app logic and routing
+## 🧪 Available scripts
 
-## About
+- `npm run dev` — start development server
+- `npm run build` — create production build
+- `npm run preview` — preview production build locally
+- `npm run lint` — run ESLint
 
-CryptoHash is built for people who want a simple way to stay updated on the crypto market without getting overwhelmed by complex dashboards. The app focuses on clarity, speed, and essential information such as price, market cap, and recent price movement. It is a lightweight project designed to help users explore coins quickly and make informed decisions with minimal friction.
+## 💡 Notes
 
-## License
+- The app uses Vite environment variables via `import.meta.env.VITE_API_URL`.
+- The homepage supports real-time filtering and sorting while the detail page shows deeper coin insights.
+- Designed for learning, quick iteration, and fast crypto exploration.
 
-This project is open for learning and personal use.
+## 📄 License
+
+Open for learning and personal use.
